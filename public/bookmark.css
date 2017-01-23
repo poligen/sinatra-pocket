@@ -1,0 +1,11 @@
+img {
+    float: right;
+    width: 250px;
+    overflow: hidden;
+}
+
+li > img:after {
+    content:"";
+    clear: both;
+}
+
