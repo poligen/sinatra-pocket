@@ -1,0 +1,82 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activesupport (5.0.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (~> 0.7)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+    ansi (1.5.0)
+    ast (2.3.0)
+    backports (3.6.8)
+    concurrent-ruby (1.0.4)
+    ethon (0.10.1)
+      ffi (>= 1.3.0)
+    ffi (1.9.17)
+    i18n (0.7.0)
+    image_info (1.1.2)
+      image_size
+      typhoeus
+    image_size (1.5.0)
+    iso8601 (0.9.1)
+    json (1.8.6)
+    link_thumbnailer (3.3.0)
+      activesupport (>= 3.0)
+      image_info (~> 1.0)
+      json (~> 1.8, >= 1.7.7)
+      net-http-persistent (~> 2.9)
+      nokogiri (~> 1.6)
+      rake (>= 0.9)
+      video_info (~> 2.6)
+    mini_portile2 (2.1.0)
+    minitest (5.10.1)
+    multi_json (1.12.1)
+    net-http-persistent (2.9.4)
+    net_http_timeout_errors (0.3.0)
+    nokogiri (1.7.0.1)
+      mini_portile2 (~> 2.1.0)
+    oga (2.8)
+      ast
+      ruby-ll (~> 2.1)
+    rack (1.6.5)
+    rack-protection (1.5.3)
+      rack
+    rack-test (0.6.3)
+      rack (>= 1.0)
+    rake (12.0.0)
+    ruby-ll (2.1.2)
+      ansi
+      ast
+    sinatra (1.4.7)
+      rack (~> 1.5)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
+    sinatra-contrib (1.4.7)
+      backports (>= 2.0)
+      multi_json
+      rack-protection
+      rack-test
+      sinatra (~> 1.4.0)
+      tilt (>= 1.3, < 3)
+    thread_safe (0.3.5)
+    tilt (2.0.5)
+    typhoeus (1.1.2)
+      ethon (>= 0.9.0)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+    video_info (2.7)
+      iso8601 (~> 0.9.1)
+      net_http_timeout_errors (~> 0.3.0)
+      oga (~> 2.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  link_thumbnailer
+  sinatra
+  sinatra-contrib
+  tilt
+
+BUNDLED WITH
+   1.13.7

@@ -1,0 +1,13 @@
+<ul>
+    <% @bookmarks.each do |bookmark| %>
+        <li>
+            <div>
+                <a href="<%= bookmark.url%>"><%= bookmark.title %></a>
+                <p>
+                    <%= bookmark.description %>
+                </p>
+                <img alt="" src="<%= bookmark.images.first.src.to_s%>" height="250px" width="280px"/>
+            </div>
+        </li>
+    <% end %>
+</ul>
