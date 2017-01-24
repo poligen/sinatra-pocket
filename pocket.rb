@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
-require 'tilt/erubis'
+require 'erubis'
 require 'link_thumbnailer'
 require 'psych'
 
