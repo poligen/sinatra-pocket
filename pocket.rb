@@ -20,8 +20,8 @@ def link_existed?(url)
 end
 
 def chop_description(string)
-  if string == nil
-    "NO DESCRIPTION"
+  if string.nil?
+    'NO DESCRIPTION'
   else
     string.size > 50 ? string.slice(0, 75) : string
   end
@@ -89,6 +89,6 @@ end
 
 post '/bookmarks/delete/all' do
   File.write(bookmark_location, "---\n")
-  session[:message] = "all bookmarks are deleted!"
+  session[:message] = 'all bookmarks are deleted!'
   redirect '/'
 end

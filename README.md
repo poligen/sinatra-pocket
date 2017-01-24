@@ -17,8 +17,6 @@ So now, only some function:
 
 4. you can add a link directly, and it will show one title, one short description, and one image automatically  
 
-
-
 And I not yet learn about how to manipulate SQL or database language, I only use yaml file to store all the bookmarks to read it later.
 
 There are some more feature I want to add in the future:
