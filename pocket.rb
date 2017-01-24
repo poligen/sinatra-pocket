@@ -1,9 +1,8 @@
 require 'sinatra'
-require 'sinatra/reloader'
+require 'sinatra/reloader' if development?
 require 'tilt/erubis'
 require 'link_thumbnailer'
 require 'psych'
-require 'pry'
 
 configure do
   enable :sessions
