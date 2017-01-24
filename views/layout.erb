@@ -6,6 +6,10 @@
         <link href="/bookmark.css" rel="stylesheet"/>
     </head>
     <body>
-        <%= yield %>
+        <h1>Take your times to read these good articles</h1>
+        <%== yield %>
+        <form  action="/bookmarks/delete/all" method="post">
+            <button id="danger" type="submit"> Delete ALL!</button>
+        </form>
     </body>
 </html>

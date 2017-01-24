@@ -2,30 +2,41 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'tilt/erubis'
 require 'link_thumbnailer'
-require 'redcarpet'
+require 'psych'
 require 'pry'
 
 configure do
   enable :sessions
   set :session_secret, 'secret'
-end
-
-before do
-end
-
-def convert_markdown(file_content)
-  markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-  markdown.render(file_content)
+  set :erb, escape_html: true
 end
 
 def bookmark_location
-  File.expand_path('../data/bookmarks.md', __FILE__)
+  File.expand_path('../data/bookmarks.yml', __FILE__)
 end
 
 def link_existed?(url)
   file = File.read(bookmark_location)
-  content = convert_markdown(file)
-  content.include? url
+  file.include? url
+end
+
+def chop_description(string)
+  if string == nil
+    "NO DESCRIPTION"
+  else
+    string.size > 50 ? string.slice(0, 75) : string
+  end
+end
+
+def write_to_yaml(link)
+  line = [{ title: link.title, url: link.url.to_s,
+            description: chop_description(link.description),
+            image: image_existed?(link) }]
+  path = bookmark_location
+  yml = Psych.dump(line)
+  File.open(path, 'a+') do |file|
+    file.puts(yml[3..-1])
+  end
 end
 
 def check_link(link)
@@ -33,11 +44,7 @@ def check_link(link)
     session[:message] = 'You already add this to your bookmarks'
     redirect '/'
   else
-    line = "- [#{link.title}](#{link.url})\n\n#{link.description}\n\n![](#{image_existed?(link)})\n\n "
-    path = bookmark_location
-    File.open(path, 'a+') do |file|
-      file.puts line
-    end
+    write_to_yaml(link)
     session[:message] = 'This link is added to your bookmarks'
     redirect '/bookmarks'
   end
@@ -62,19 +69,27 @@ post '/' do
 end
 
 get '/bookmarks' do
-  file = File.read(bookmark_location)
-  @content = convert_markdown(file)
+  @content = Psych.load_file(bookmark_location) || []
   erb :bookmarks
 end
 
-post '/bookmarks' do
-  File.write(bookmark_location, params[:edit_content])
-  session[:message] = 'Your bookmarks has been updated'
-  redirect '/bookmarks'
+post '/bookmark/:index/delete' do
+  @content = Psych.load_file(bookmark_location)
+
+  @content.delete_at params[:index].to_i
+  if @content.empty?
+    File.write(bookmark_location, "---\n")
+    session[:message] = 'There is no more bookmarks'
+    redirect '/'
+  else
+    File.write(bookmark_location, @content.to_yaml)
+    session[:message] = 'This bookmark is deleted'
+    redirect '/bookmarks'
+  end
 end
 
-# only admin can do it
-get '/bookmarks/edit' do
-  @content = File.read(bookmark_location)
-  erb :edit
+post '/bookmarks/delete/all' do
+  File.write(bookmark_location, "---\n")
+  session[:message] = "all bookmarks are deleted!"
+  redirect '/'
 end

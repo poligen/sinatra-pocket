@@ -1,6 +1,26 @@
 
 <h3><%=session.delete(:message)%></h3>
 
-<%= @content %>
+<% unless @content.empty? %>
+    <ul>
+        <% @content.each_with_index do |bookmark, index| %>
+            <li id="box">
+                <a href="<%= bookmark[:url] %>"><h5><%= bookmark[:title]%></h5></a>
+                <p>
+                    <%= bookmark[:description] %>
+                </p>
+                <img alt="" src="<%= bookmark[:image] %>"/>
+                <form action="/bookmark/<%= index %>/delete" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% end %>
+    </ul>
+<% else %>
+    <h3>There is no content, add more bookmarks to read them later!!</h3>
+<% end %>
+
 
 <a href="/">Add more bookmarks</a>
+
+
